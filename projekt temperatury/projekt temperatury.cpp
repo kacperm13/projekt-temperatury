@@ -31,8 +31,12 @@ int main()
 			}
 			else {
 				cout << fahr << "F = " << FtoC(fahr) << "C\n";
-				cout << "Wcisnij enter, aby kontunowac.";
+				cout << "Wpisz 1, aby kontynuowac.";					//tutaj nie wiedzialem jak zrobic to z wcisnieciem enter, wiec jest takie cos
 				cin >> a;
+				while (a != 1) {
+					cout << "Bledna wartosc. Wpisz 1 ponownie.";
+					cin >> a;
+				}
 			}
 			break;
 		}
@@ -44,7 +48,11 @@ int main()
 			}
 			else {
 				cout << fahr << "F = " << FtoK(fahr) << "K";
-				cout << "Wcisnij enter, aby kontunowac.";
+				cout << "Wpisz 1, aby kontynuowac.";
+				while (a != 1) {
+					cout << "Bledna wartosc. Wpisz 1 ponownie.";
+					cin >> a;
+				}
 			}
 			break;
 		}
@@ -56,7 +64,11 @@ int main()
 			}
 			else {
 				cout << cel << "C = " << CtoF(cel) << "F";
-				cout << "Wcisnij enter, aby kontunowac.";
+				cout << "Wpisz 1, aby kontynuowac.";
+				while (a != 1) {
+					cout << "Bledna wartosc. Wpisz 1 ponownie.";
+					cin >> a;
+				}
 			}
 			break;
 		}
@@ -68,7 +80,11 @@ int main()
 			}
 			else {
 				cout << cel << "C = " << CtoK(cel) << "K";
-				cout << "Wcisnij enter, aby kontunowac.";
+				cout << "Wpisz 1, aby kontynuowac.";
+				while (a != 1) {
+					cout << "Bledna wartosc. Wpisz 1 ponownie.";
+					cin >> a;
+				}
 			}
 			break;
 		}
@@ -80,7 +96,11 @@ int main()
 			}
 			else {
 				cout << kel << "K = " << KtoF(kel) << "F";
-				cout << "Wcisnij enter, aby kontunowac.";
+				cout << "Wpisz 1, aby kontynuowac.";
+				while (a != 1) {
+					cout << "Bledna wartosc. Wpisz 1 ponownie.";
+					cin >> a;
+				}
 			}
 			break;
 		}
@@ -92,7 +112,11 @@ int main()
 			}
 			else {
 				cout << kel << "K = " << KtoC(kel) << "C";
-				cout << "Wcisnij enter, aby kontunowac.";
+				cout << "Wpisz 1, aby kontynuowac.";
+				while (a != 1) {
+					cout << "Bledna wartosc. Wpisz 1 ponownie.";
+					cin >> a;
+				}
 			}
 			break;
 		}
