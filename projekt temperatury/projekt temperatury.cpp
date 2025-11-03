@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <stdlib.h>
 using namespace std;
 float FtoC(float fahr);
 float FtoK(float fahr);
@@ -10,50 +11,99 @@ void menu();
 float pobierzF(float fahr);
 float pobierzC(float cel);
 float pobierzK(float kel);
+float check(float temp, char stopnie);
 
 int main()
 {
-	int opcja;
-	menu();
-	cout << "Wybierz opcje: ";
-	cin >> opcja;
-	switch (opcja) {
-	case 1: {
-		float fahr = pobierzF(0);
-		cout << fahr << "F = " << FtoC(fahr) << "C";
-		break;
-	}
-	case 2: {
-		float fahr = pobierzF(0);
-		cout << fahr << "F = " << FtoK(fahr) << "K";
-		break;
-	}
-	case 3: {
-		float cel = pobierzC(0);
-		cout << cel << "C = " << CtoF(cel) << "F";
-		break;
-	}
-	case 4: {
-		float cel = pobierzC(0);
-		cout << cel << "C = " << CtoK(cel) << "K";
-		break;
-	}
-	case 5: {
-		float kel = pobierzK(0);
-		cout << kel << "K = " << KtoF(kel) << "F";
-		break;
-	}
-	case 6: {
-		float kel = pobierzK(0);
-		cout << kel << "K = " << KtoC(kel) << "C";
-		break;
-	}
-	case 7:
-		return 0;
-	default:
-		return 0;
+	while (1) {
+		system("cls");
+		int opcja;
+		int a;
+		menu();
+		cout << "Wybierz opcje: ";
+		cin >> opcja;
+		switch (opcja) {
+		case 1: {
+			float fahr = pobierzF(0);
+			fahr = check(fahr, 'F');
+			if (fahr == -999.0) {
+				cout << "Nie ma takiej temperatury.";
+			}
+			else {
+				cout << fahr << "F = " << FtoC(fahr) << "C\n";
+				cout << "Wcisnij enter, aby kontunowac.";
+				cin >> a;
+			}
+			break;
+		}
+		case 2: {
+			float fahr = pobierzF(0);
+			fahr = check(fahr, 'F');
+			if (fahr == -999.0) {
+				cout << "Nie ma takiej temperatury.";
+			}
+			else {
+				cout << fahr << "F = " << FtoK(fahr) << "K";
+				cout << "Wcisnij enter, aby kontunowac.";
+			}
+			break;
+		}
+		case 3: {
+			float cel = pobierzC(0);
+			cel = check(cel, 'C');
+			if (cel == -999.0) {
+				cout << "Nie ma takiej temperatury.";
+			}
+			else {
+				cout << cel << "C = " << CtoF(cel) << "F";
+				cout << "Wcisnij enter, aby kontunowac.";
+			}
+			break;
+		}
+		case 4: {
+			float cel = pobierzC(0);
+			cel = check(cel, 'C');
+			if (cel == -999.0) {
+				cout << "Nie ma takiej temperatury.";
+			}
+			else {
+				cout << cel << "C = " << CtoK(cel) << "K";
+				cout << "Wcisnij enter, aby kontunowac.";
+			}
+			break;
+		}
+		case 5: {
+			float kel = pobierzK(0);
+			kel = check(kel, 'K');
+			if (kel == -999.0) {
+				cout << "Nie ma takiej temperatury.";
+			}
+			else {
+				cout << kel << "K = " << KtoF(kel) << "F";
+				cout << "Wcisnij enter, aby kontunowac.";
+			}
+			break;
+		}
+		case 6: {
+			float kel = pobierzK(0);
+			kel = check(kel, 'K');
+			if (kel == -999.0) {
+				cout << "Nie ma takiej temperatury.";
+			}
+			else {
+				cout << kel << "K = " << KtoC(kel) << "C";
+				cout << "Wcisnij enter, aby kontunowac.";
+			}
+			break;
+		}
+		case 7:
+			return 0;
+		default:
+			return 0;
+		}
 	}
 }
+//przeliczanie
 float FtoC(float fahr) {
 	float wynik = (5.0 / 9.0) * (fahr - 32);
 	return wynik;
@@ -78,6 +128,7 @@ float KtoF(float kel) {
 	float wynik = (kel * 9.0 / 5.0) - 459.67;
 	return wynik;
 }
+//menu
 void menu() {
 	cout << "1 - przelicz Fahr -> Celsius\n";
 	cout << "2 - przelicz Fahr -> Kelwin\n";
@@ -87,26 +138,32 @@ void menu() {
 	cout << "6 - przelicz Kelwin -> Celsius\n";
 	cout << "7 - zakoncz dzialanie programu\n";
 }
+//pobieranie temperatury od uzytkownika
 float pobierzF(float fahr) {
 	cout << "Podaj temperature do przeliczenia (Fahr): ";
 	cin >> fahr;
-	check(fahr);
 	return fahr;
 }
 float pobierzC(float cel) {
 	cout << "Podaj temperature do przeliczenia (Celsius): ";
 	cin >> cel;
-	check(cel);
 	return cel;
 }
 float pobierzK(float kel) {
 	cout << "Podaj temperature do przeliczenia (Kelwin): ";
 	cin >> kel;
-	check(kel);
 	return kel;
 }
-int check(float temp, char stopnie) {
-	if (temp < 0 && stopnie = 'K') {
-
+//sprawdzenie czy podana temperatura jest mozliwa
+float check(float temp, char stopnie) {		
+	if (temp < 0 && stopnie == 'K') {
+		return -999.0;
 	}
+	if (temp < -459.67 && stopnie == 'F') {
+		return -999.0;
+	}
+	if (temp < -273.15 && stopnie == 'C') {
+		return -999.0;
+	}
+	return temp;
 }
