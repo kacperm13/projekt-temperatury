@@ -20,23 +20,23 @@ int main()
 		int opcja;
 		int a;
 		menu();
-		cout << "Wybierz opcje: ";
+		cout << "Wybierz opcje: \n";
 		cin >> opcja;
 		switch (opcja) {
 		case 1: {
 			float fahr = pobierzF(0);
 			fahr = check(fahr, 'F');
 			if (fahr == -999.0) {
-				cout << "Nie ma takiej temperatury.";
+				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
 				cout << fahr << "F = " << FtoC(fahr) << "C\n";
-				cout << "Wpisz 1, aby kontynuowac.";					//tutaj nie wiedzialem jak zrobic to z wcisnieciem enter, wiec jest takie cos
-				cin >> a;
-				while (a != 1) {
-					cout << "Bledna wartosc. Wpisz 1 ponownie.";
-					cin >> a;
 				}
+			cout << "Wpisz 1, aby kontynuowac.\n";					//tutaj nie wiedzialem jak zrobic to z wcisnieciem enter, wiec jest takie cos
+			cin >> a;
+			while (a != 1) {
+				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
+				cin >> a;
 			}
 			break;
 		}
@@ -44,15 +44,16 @@ int main()
 			float fahr = pobierzF(0);
 			fahr = check(fahr, 'F');
 			if (fahr == -999.0) {
-				cout << "Nie ma takiej temperatury.";
+				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
 				cout << fahr << "F = " << FtoK(fahr) << "K";
-				cout << "Wpisz 1, aby kontynuowac.";
-				while (a != 1) {
-					cout << "Bledna wartosc. Wpisz 1 ponownie.";
-					cin >> a;
 				}
+			cout << "Wpisz 1, aby kontynuowac.\n";
+			cin >> a;
+			while (a != 1) {
+				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
+				cin >> a;
 			}
 			break;
 		}
@@ -60,15 +61,16 @@ int main()
 			float cel = pobierzC(0);
 			cel = check(cel, 'C');
 			if (cel == -999.0) {
-				cout << "Nie ma takiej temperatury.";
+				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
-				cout << cel << "C = " << CtoF(cel) << "F";
-				cout << "Wpisz 1, aby kontynuowac.";
-				while (a != 1) {
-					cout << "Bledna wartosc. Wpisz 1 ponownie.";
-					cin >> a;
+				cout << cel << "C = " << CtoF(cel) << "F\n";
 				}
+			cout << "Wpisz 1, aby kontynuowac.\n";
+			cin >> a;
+			while (a != 1) {
+				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
+				cin >> a;
 			}
 			break;
 		}
@@ -76,15 +78,16 @@ int main()
 			float cel = pobierzC(0);
 			cel = check(cel, 'C');
 			if (cel == -999.0) {
-				cout << "Nie ma takiej temperatury.";
+				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
-				cout << cel << "C = " << CtoK(cel) << "K";
-				cout << "Wpisz 1, aby kontynuowac.";
-				while (a != 1) {
-					cout << "Bledna wartosc. Wpisz 1 ponownie.";
-					cin >> a;
+				cout << cel << "C = " << CtoK(cel) << "K\n";
 				}
+			cout << "Wpisz 1, aby kontynuowac.\n";
+			cin >> a;
+			while (a != 1) {
+				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
+				cin >> a;
 			}
 			break;
 		}
@@ -92,15 +95,16 @@ int main()
 			float kel = pobierzK(0);
 			kel = check(kel, 'K');
 			if (kel == -999.0) {
-				cout << "Nie ma takiej temperatury.";
+				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
-				cout << kel << "K = " << KtoF(kel) << "F";
-				cout << "Wpisz 1, aby kontynuowac.";
-				while (a != 1) {
-					cout << "Bledna wartosc. Wpisz 1 ponownie.";
-					cin >> a;
+				cout << kel << "K = " << KtoF(kel) << "F\n";
 				}
+			cout << "Wpisz 1, aby kontynuowac.\n";
+			cin >> a;
+			while (a != 1) {
+				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
+				cin >> a;
 			}
 			break;
 		}
@@ -108,15 +112,16 @@ int main()
 			float kel = pobierzK(0);
 			kel = check(kel, 'K');
 			if (kel == -999.0) {
-				cout << "Nie ma takiej temperatury.";
+				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
-				cout << kel << "K = " << KtoC(kel) << "C";
-				cout << "Wpisz 1, aby kontynuowac.";
-				while (a != 1) {
-					cout << "Bledna wartosc. Wpisz 1 ponownie.";
-					cin >> a;
+				cout << kel << "K = " << KtoC(kel) << "C\n";
 				}
+			cout << "Wpisz 1, aby kontynuowac.\n";
+			cin >> a;
+			while (a != 1) {
+				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
+				cin >> a;
 			}
 			break;
 		}
