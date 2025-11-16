@@ -1,22 +1,12 @@
 ﻿#include <iostream>
 #include <stdlib.h>
+#include "headerFile.h"
 using namespace std;
-float FtoC(float fahr);
-float FtoK(float fahr);
-float CtoF(float cel);
-float CtoK(float cel);
-float KtoC(float kel);
-float KtoF(float kel);
-void menu();
-float pobierzF(float fahr);
-float pobierzC(float cel);
-float pobierzK(float kel);
-float check(float temp, char stopnie);
-
 int main()
 {
 	while (1) {
 		system("cls");
+
 		int opcja;
 		int a;
 		menu();
@@ -31,13 +21,11 @@ int main()
 			}
 			else {
 				cout << fahr << "F = " << FtoC(fahr) << "C\n";
-				}
-			cout << "Wpisz 1, aby kontynuowac.\n";					//tutaj nie wiedzialem jak zrobic to z wcisnieciem enter, wiec jest takie cos
-			cin >> a;
-			while (a != 1) {
-				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
-				cin >> a;
+				historiaLiczb(fahr, FtoC(fahr), 'F', 'C');
 			}
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 		case 2: {
@@ -48,13 +36,11 @@ int main()
 			}
 			else {
 				cout << fahr << "F = " << FtoK(fahr) << "K";
-				}
-			cout << "Wpisz 1, aby kontynuowac.\n";
-			cin >> a;
-			while (a != 1) {
-				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
-				cin >> a;
+				historiaLiczb(fahr, FtoK(fahr), 'F', 'K');
 			}
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 		case 3: {
@@ -65,13 +51,11 @@ int main()
 			}
 			else {
 				cout << cel << "C = " << CtoF(cel) << "F\n";
-				}
-			cout << "Wpisz 1, aby kontynuowac.\n";
-			cin >> a;
-			while (a != 1) {
-				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
-				cin >> a;
+				historiaLiczb(cel, CtoF(cel), 'C', 'F');
 			}
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 		case 4: {
@@ -82,13 +66,11 @@ int main()
 			}
 			else {
 				cout << cel << "C = " << CtoK(cel) << "K\n";
-				}
-			cout << "Wpisz 1, aby kontynuowac.\n";
-			cin >> a;
-			while (a != 1) {
-				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
-				cin >> a;
+				historiaLiczb(cel, CtoK(cel), 'C', 'K');
 			}
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 		case 5: {
@@ -99,13 +81,11 @@ int main()
 			}
 			else {
 				cout << kel << "K = " << KtoF(kel) << "F\n";
-				}
-			cout << "Wpisz 1, aby kontynuowac.\n";
-			cin >> a;
-			while (a != 1) {
-				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
-				cin >> a;
+				historiaLiczb(kel, KtoF(kel), 'K', 'F');
 			}
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 		case 6: {
@@ -116,19 +96,29 @@ int main()
 			}
 			else {
 				cout << kel << "K = " << KtoC(kel) << "C\n";
-				}
-			cout << "Wpisz 1, aby kontynuowac.\n";
-			cin >> a;
-			while (a != 1) {
-				cout << "Bledna wartosc. Wpisz 1 ponownie.\n";
-				cin >> a;
+				historiaLiczb(kel, KtoC(kel), 'K', 'C');
 			}
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
 			break;
 		}
-		case 7:
+		case 7: {
+				historiaWyswietl();
+				cout << "Wcisnij Enter, aby kontynuowac.\n";
+				cin.ignore();
+				cin.get();
+				break;
+		}
+		case 8: {
 			return 0;
-		default:
-			return 0;
+		}
+		default: {
+			cout << "Bledna wartosc. Wcisnij Enter, aby opuscic kontynuowac.\n";
+			cin.ignore();
+			cin.get();
+			break;
+		}
 		}
 	}
 }
@@ -165,21 +155,22 @@ void menu() {
 	cout << "4 - przelicz Celsius -> Kelwin\n";
 	cout << "5 - przelicz Kelwin -> Fahr\n";
 	cout << "6 - przelicz Kelwin -> Celsius\n";
-	cout << "7 - zakoncz dzialanie programu\n";
+	cout << "7 - pokaz historie\n";
+	cout << "8 - zakoncz dzialanie programu\n";
 }
 //pobieranie temperatury od uzytkownika
 float pobierzF(float fahr) {
-	cout << "Podaj temperature do przeliczenia (Fahr): ";
+	cout << "Podaj temperature do przeliczenia (Fahr): \n";
 	cin >> fahr;
 	return fahr;
 }
 float pobierzC(float cel) {
-	cout << "Podaj temperature do przeliczenia (Celsius): ";
+	cout << "Podaj temperature do przeliczenia (Celsius): \n";
 	cin >> cel;
 	return cel;
 }
 float pobierzK(float kel) {
-	cout << "Podaj temperature do przeliczenia (Kelwin): ";
+	cout << "Podaj temperature do przeliczenia (Kelwin): \n";
 	cin >> kel;
 	return kel;
 }
@@ -195,4 +186,27 @@ float check(float temp, char stopnie) {
 		return -999.0;
 	}
 	return temp;
+}
+bool historiaLiczb(float temp1, float temp2, char znak1, char znak2) {
+	if (dataCounter + 1 >= 100) {
+		cout << "Tablica jest juz pelna.\n";
+		return false;
+	}
+	tablicaLiczb[dataCounter] = temp1;
+	tablicaLiczb[dataCounter + 1] = temp2;
+	tablicaZnakow[dataCounter] = znak1;
+	tablicaZnakow[dataCounter + 1] = znak2;
+	dataCounter += 2;
+	return true;
+
+}
+void historiaWyswietl() {
+	if (dataCounter == 0) {
+		cout << "Historia jest pusta.\n";
+		return;
+	}
+	cout << "Historia:\n";
+	for (int i = 0; i < dataCounter; i+=2) {
+		cout << "<" << i/2+1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+	}
 }

@@ -1,0 +1,17 @@
+float FtoC(float fahr);
+float FtoK(float fahr);
+float CtoF(float cel);
+float CtoK(float cel);
+float KtoC(float kel);
+float KtoF(float kel);
+void menu();
+float pobierzF(float fahr);
+float pobierzC(float cel);
+float pobierzK(float kel);
+float check(float temp, char stopnie);
+bool historiaLiczb(float temp1, float temp2, char znak1, char znak2);
+void historiaWyswietl();
+int dataCounter = 0;
+const int rozmiar = 100;
+float tablicaLiczb[rozmiar] = { 0.0 };
+char tablicaZnakow[rozmiar] = { '\0' };
