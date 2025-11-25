@@ -7,8 +7,7 @@ int main()
 	while (1) {
 		system("cls");
 
-		int opcja;
-		int a;
+		int opcja;	
 		menu();
 		cout << "Wybierz opcje: \n";
 		cin >> opcja;
@@ -35,7 +34,7 @@ int main()
 				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
-				cout << fahr << "F = " << FtoK(fahr) << "K";
+				cout << fahr << "F = " << FtoK(fahr) << "K\n";
 				historiaLiczb(fahr, FtoK(fahr), 'F', 'K');
 			}
 			cout << "Wcisnij Enter, aby kontynuowac.\n";
@@ -111,6 +110,13 @@ int main()
 				break;
 		}
 		case 8: {
+			historiaUsun();
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
+			break;
+		}
+		case -1: {
 			return 0;
 		}
 		default: {
@@ -156,7 +162,8 @@ void menu() {
 	cout << "5 - przelicz Kelwin -> Fahr\n";
 	cout << "6 - przelicz Kelwin -> Celsius\n";
 	cout << "7 - pokaz historie\n";
-	cout << "8 - zakoncz dzialanie programu\n";
+	cout << "8 - usun historie\n";
+	cout << "-1 - zakoncz dzialanie programu\n";
 }
 //pobieranie temperatury od uzytkownika
 float pobierzF(float fahr) {
@@ -189,7 +196,7 @@ float check(float temp, char stopnie) {
 }
 bool historiaLiczb(float temp1, float temp2, char znak1, char znak2) {
 	if (dataCounter + 1 >= 100) {
-		cout << "Tablica jest juz pelna.\n";
+		cout << "Tablica jest juz pelna. Wynik nie zostanie dodany do historii przeliczen.\n";
 		return false;
 	}
 	tablicaLiczb[dataCounter] = temp1;
@@ -205,8 +212,93 @@ void historiaWyswietl() {
 		cout << "Historia jest pusta.\n";
 		return;
 	}
-	cout << "Historia:\n";
-	for (int i = 0; i < dataCounter; i+=2) {
-		cout << "<" << i/2+1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+	else {
+		historiaMenu();
+	}
+}
+void historiaMenu() {
+	system("cls");
+	int opcja;
+	int licznik = 0;
+	cout << "Wybierz opcje: \n";
+	cout << "1. Tylko C -> inne\n";
+	cout << "2. Tylko F -> inne\n";
+	cout << "3. Tylko K -> inne\n";
+	cout << "4. Cala historia\n";
+	cin >> opcja;
+	switch (opcja) {
+	case 1:	//Celsjusz
+	{
+		cout << "Historia:\n";
+		for (int i = 0; i < dataCounter; i += 2) {
+			if (tablicaZnakow[i] == 'C') {
+				cout << "<" << i / 2 + 1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+				licznik++;
+			}
+		}
+		if (licznik == 0) {
+			cout << "Historia jest pusta.\n";
+		}
+		break;
+	}
+	case 2:	//Fahr
+	{
+		cout << "Historia:\n";
+		for (int i = 0; i < dataCounter; i += 2) {
+			if (tablicaZnakow[i] == 'F') {
+				cout << "<" << i / 2 + 1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+				licznik++;
+			}
+		}
+		if (licznik == 0) {
+			cout << "Historia jest pusta.\n";
+		}
+		break;
+	}
+	case 3:	//Kelwin
+	{
+		cout << "Historia:\n";
+		for (int i = 0; i < dataCounter; i += 2) {
+			if (tablicaZnakow[i] == 'K') {
+				cout << "<" << i / 2 + 1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+				licznik++;
+			}
+		}
+		if (licznik == 0) {
+			cout << "Historia jest pusta.\n";
+		}
+		break;
+	}
+	case 4: //cala
+	{
+		cout << "Historia: \n";
+		for (int i = 0; i < dataCounter; i += 2) {
+			cout << "<" << i / 2 + 1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+		}
+		break;
+	}
+	}
+
+}
+void historiaUsun() {
+	system("cls");
+	if (dataCounter == 0) {
+		cout << "Historia jest pusta.\n";
+		return;
+	}
+	else {
+		cout << "Historia: \n";
+		for (int i = 0; i < dataCounter; i += 2) {
+			for (int j = 1; j < dataCounter; j++) {
+				cout << "<" << j << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+			}
+		}
+	}
+	int entityToRemove;
+	cout << "Wybierz pozycje, ktora zostanie usunieta.\n";
+	cin >> entityToRemove;
+	//tablicaLiczb[entityToRemove+1][+2]
+		for (int i = 0; i < dataCounter; i++) {
+
 	}
 }

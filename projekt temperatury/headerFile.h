@@ -15,3 +15,5 @@ int dataCounter = 0;
 const int rozmiar = 100;
 float tablicaLiczb[rozmiar] = { 0.0 };
 char tablicaZnakow[rozmiar] = { '\0' };
+void historiaMenu();
+void historiaUsun();
