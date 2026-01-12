@@ -17,3 +17,4 @@ float tablicaLiczb[rozmiar] = { 0.0 };
 char tablicaZnakow[rozmiar] = { '\0' };
 void historiaMenu();
 void historiaUsun();
+void historiaMod();

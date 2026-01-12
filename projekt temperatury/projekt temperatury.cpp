@@ -116,6 +116,13 @@ int main()
 			cin.get();
 			break;
 		}
+		case 9: {
+			historiaMod();
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
+			break;
+		}
 		case -1: {
 			return 0;
 		}
@@ -163,6 +170,7 @@ void menu() {
 	cout << "6 - przelicz Kelwin -> Celsius\n";
 	cout << "7 - pokaz historie\n";
 	cout << "8 - usun historie\n";
+	cout << "9 - modyfikacja wpisu z historii\n";
 	cout << "-1 - zakoncz dzialanie programu\n";
 }
 //pobieranie temperatury od uzytkownika
@@ -281,7 +289,7 @@ void historiaMenu() {
 
 }
 void historiaUsun() {
-	system("cls");
+	system("cls");						//pokazanie historii
 	if (dataCounter == 0) {
 		cout << "Historia jest pusta.\n";
 		return;
@@ -289,16 +297,57 @@ void historiaUsun() {
 	else {
 		cout << "Historia: \n";
 		for (int i = 0; i < dataCounter; i += 2) {
-			for (int j = 1; j < dataCounter; j++) {
-				cout << "<" << j << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
-			}
+			cout << "<" << i / 2 + 1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
 		}
 	}
-	int entityToRemove;
+
+	int entityToRemove;		//wybor pozycji
 	cout << "Wybierz pozycje, ktora zostanie usunieta.\n";
 	cin >> entityToRemove;
-	//tablicaLiczb[entityToRemove+1][+2]
-		for (int i = 0; i < dataCounter; i++) {
 
+	if (entityToRemove <1 || entityToRemove >dataCounter / 2) {	//warunek ze jak eTR jest mniesze od 1 albo wiekze niz ilosc wpisow ktore mamy to stop
+		cout << "Nieprawidlowa pozycja. \n";
+		return;
 	}
+	int start = (entityToRemove - 1) * 2; // indeks tego co bedzie usuwane
+	for (int i = start + 2; i < dataCounter; i++) {
+		tablicaLiczb[i - 2] = tablicaLiczb[i];
+		tablicaZnakow[i - 2] = tablicaZnakow[i];
+	}
+
+	dataCounter -= 2;
+	cout << "Usunieto wpis.\n";
+}
+
+void historiaMod() {
+	if (dataCounter == 0) {		//pokazanie historii
+		cout << "Historia jest pusta.\n";
+		return;
+	}
+	else {
+		cout << "Historia: \n";
+		for (int i = 0; i < dataCounter; i += 2) {
+			cout << "<" << i / 2 + 1 << "> " << tablicaLiczb[i] << tablicaZnakow[i] << " = " << tablicaLiczb[i + 1] << tablicaZnakow[i + 1] << endl;
+		}
+	}
+
+	int entityToModify;		//wybor pozycji
+	cout << "Wybierz pozycje, ktora zostanie zmodyfikowana.";
+	cin >> entityToModify;
+
+	if (entityToModify <1 || entityToModify >dataCounter / 2) {	//warunek ze jak eTM jest mniesze od 1 albo wiekze niz ilosc wpisow ktore mamy to stop
+		cout << "Nieprawidlowa pozycja. \n";
+		return;
+	}
+
+	int zmiana= (entityToModify - 1) * 2; // indeks tego co bedzie zmienione
+
+	int temp;
+	char znak1;
+	char znak2;
+	cout << "Podaj nową temperaturę do przeliczenia oraz skalę.\n";
+	cin >> temp >> znak1;
+	cout << "Podaj nową skalę, na którą ma być przeliczona ta temperatura.\n";
+	cin >> znak2;
+	
 }
