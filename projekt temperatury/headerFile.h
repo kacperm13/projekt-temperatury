@@ -18,3 +18,4 @@ char tablicaZnakow[rozmiar] = { '\0' };
 void historiaMenu();
 void historiaUsun();
 void historiaMod();
+void historiaLos();

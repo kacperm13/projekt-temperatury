@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <stdlib.h>
+#include <cstdlib>
 #include "headerFile.h"
 using namespace std;
 int main()
@@ -7,7 +8,8 @@ int main()
 	while (1) {
 		system("cls");
 
-		int opcja;	
+		int opcja;
+		srand(time(NULL));
 		menu();
 		cout << "Wybierz opcje: \n";
 		cin >> opcja;
@@ -49,7 +51,7 @@ int main()
 				cout << "Nie ma takiej temperatury.\n";
 			}
 			else {
-				cout << cel << "C = " << CtoF(cel) << "F\n";
+					cout << cel << "C = " << CtoF(cel) << "F\n";
 				historiaLiczb(cel, CtoF(cel), 'C', 'F');
 			}
 			cout << "Wcisnij Enter, aby kontynuowac.\n";
@@ -123,6 +125,13 @@ int main()
 			cin.get();
 			break;
 		}
+		case 10: {
+			historiaLos();
+			cout << "Wcisnij Enter, aby kontynuowac.\n";
+			cin.ignore();
+			cin.get();
+			break;
+		}
 		case -1: {
 			return 0;
 		}
@@ -171,6 +180,7 @@ void menu() {
 	cout << "7 - pokaz historie\n";
 	cout << "8 - usun historie\n";
 	cout << "9 - modyfikacja wpisu z historii\n";
+	cout << "10 - losowe wypelnianie historii\n";
 	cout << "-1 - zakoncz dzialanie programu\n";
 }
 //pobieranie temperatury od uzytkownika
@@ -320,6 +330,7 @@ void historiaUsun() {
 }
 
 void historiaMod() {
+	system("cls");
 	if (dataCounter == 0) {		//pokazanie historii
 		cout << "Historia jest pusta.\n";
 		return;
@@ -340,14 +351,94 @@ void historiaMod() {
 		return;
 	}
 
-	int zmiana= (entityToModify - 1) * 2; // indeks tego co bedzie zmienione
+	int zmiana = (entityToModify - 1) * 2; // indeks tego co bedzie zmienione
 
-	int temp;
-	char znak1;
-	char znak2;
-	cout << "Podaj nową temperaturę do przeliczenia oraz skalę.\n";
-	cin >> temp >> znak1;
-	cout << "Podaj nową skalę, na którą ma być przeliczona ta temperatura.\n";
-	cin >> znak2;
-	
+	float temp1;
+	char skala1;
+	char skala2;
+	cout << "Podaj nowa temperature do przeliczenia. \n";
+	cin >> temp1;
+	cout << "Podaj skale, w ktorej jest nowa temperatura. \n";
+	cin >> skala1;
+	cout << "Podaj nowa skale, na ktora ma byc przeliczona ta temperatura.\n";
+	cin >> skala2;
+	if (check(temp1, skala1) == -999.0) {
+		cout << "Nie ma takiej temperatury.\n";
+	}
+	else {
+	}
+
+	float temp2;
+	if (skala1 == 'C' && skala2 == 'F') temp2 = CtoF(temp1);
+	else if (skala1 == 'C' && skala2 == 'K') temp2 = CtoK(temp1);
+	else if (skala1 == 'K' && skala2 == 'F') temp2 = KtoF(temp1);
+	else if (skala1 == 'K' && skala2 == 'C') temp2 = KtoC(temp1);
+	else if (skala1 == 'F' && skala2 == 'K') temp2 = FtoK(temp1);
+	else if (skala1 == 'F' && skala2 == 'C') temp2 = FtoC(temp1);
+
+	tablicaLiczb[entityToModify] = temp1;
+	tablicaZnakow[entityToModify] = skala1;
+	tablicaLiczb[entityToModify + 1] = temp2;
+	tablicaZnakow[entityToModify + 1] = skala2;
+
+	cout << "Wpis zostal zmodyfikowany.\n";
+}
+
+void historiaLos() {
+	int iloscLos;
+	cout << "Podaj ilosc losowych wartosci do przeliczenia: \n";
+	cin >> iloscLos;
+	char opcja;
+	if (dataCounter + iloscLos * 2 >= 100) {
+		cout << "Zbyt malo miejsca w tablicy na wygenerowanie " << iloscLos << " wartosci.\nCzy chcesz przeliczyc tyle wartosci, ile pozostalo miejsca w tabeli?\n(T/N)\n";
+		cin >> opcja;
+		if (opcja != 't' && opcja != 'T') {
+			return;
+		}
+		iloscLos = (100 - dataCounter) / 2;
+	}
+
+		char skala1;
+		char skala2;
+		float temp1;
+		float temp2;
+		int los1;	//pierwsza skala
+		int los2;	//poczatkowa temperatura
+		int los3;	//druga skala
+		for (int i = 0; i < iloscLos; i++) {
+			los1 = rand() % 3;
+
+			if (los1 == 0) skala1 = 'C';		//losowanie 1 skali
+			else if (los1 == 1) skala1 = 'F';
+			else if (los1 == 2) skala1 = 'K';
+
+			if (skala1 == 'C') {				//losowanie temperatury
+				los2 = rand() % (727 + 273 + 1) - 273;
+			}
+			else if (skala1 == 'F') {
+				los2 = rand() % (541 + 459 + 1) - 459;
+			}
+			else if (skala1 == 'K') {
+				los2 = rand() % 1001;
+			}
+
+			temp1 = (double)los2;
+
+			do {
+				los3 = rand() % 3;
+				if (los3 == 0) skala2 = 'C';		//losowanie 2 skali
+				else if (los3 == 1) skala2 = 'F';
+				else if (los3 == 2) skala2 = 'K';
+			} while (skala1 == skala2);
+
+			if (skala1 == 'C' && skala2 == 'F') temp2 = CtoF(temp1);
+			else if (skala1 == 'C' && skala2 == 'K') temp2 = CtoK(temp1);
+			else if (skala1 == 'K' && skala2 == 'F') temp2 = KtoF(temp1);
+			else if (skala1 == 'K' && skala2 == 'C') temp2 = KtoC(temp1);
+			else if (skala1 == 'F' && skala2 == 'K') temp2 = FtoK(temp1);
+			else if (skala1 == 'F' && skala2 == 'C') temp2 = FtoC(temp1);
+
+			historiaLiczb(temp1, temp2, skala1, skala2);
+		}
+		cout << "Losowe wpisy zostaly wygeneroiwane.\n";
 }
