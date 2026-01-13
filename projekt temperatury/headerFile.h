@@ -19,3 +19,6 @@ void historiaMenu();
 void historiaUsun();
 void historiaMod();
 void historiaLos();
+
+bool conversionFailed = false;
+double convertToDouble(const char vector[], int size);

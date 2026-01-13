@@ -5,14 +5,21 @@
 using namespace std;
 int main()
 {
+	srand(time(NULL));
 	while (1) {
 		system("cls");
 
 		int opcja;
-		srand(time(NULL));
 		menu();
 		cout << "Wybierz opcje: \n";
-		cin >> opcja;
+		char str[280];
+		conversionFailed = false;
+		cin.getline(str, 280);
+		opcja = convertToDouble(str, 280);
+		if (conversionFailed) {
+			cout << "Wprowadzono niepoprawny zapis liczby.\n";
+			continue;
+		}
 		switch (opcja) {
 		case 1: {
 			float fahr = pobierzF(0);
@@ -185,19 +192,44 @@ void menu() {
 }
 //pobieranie temperatury od uzytkownika
 float pobierzF(float fahr) {
-	cout << "Podaj temperature do przeliczenia (Fahr): \n";
-	cin >> fahr;
-	return fahr;
+	char str[280];
+	while (1) {
+		conversionFailed = false;
+		cout << "Podaj temperature do przeliczenia (Fahr): \n";
+		cin.getline(str, 280);
+		float fahr = convertToDouble(str, 280);
+		if (conversionFailed) {
+			cout << "Wprowadzono niepoprawny zapis liczby.\n";
+		}
+		else return fahr;
+	}
 }
 float pobierzC(float cel) {
-	cout << "Podaj temperature do przeliczenia (Celsius): \n";
-	cin >> cel;
-	return cel;
+	char str[280];
+	while (1) {
+		conversionFailed = false;
+		cout << "Podaj temperature do przeliczenia (Cel): \n";
+		cin.getline(str, 280);
+		float cel = convertToDouble(str, 280);
+		if (conversionFailed) {
+			cout << "Wprowadzono niepoprawny zapis liczby.\n";
+		}
+		else return cel;
+	}
 }
+
 float pobierzK(float kel) {
-	cout << "Podaj temperature do przeliczenia (Kelwin): \n";
-	cin >> kel;
-	return kel;
+	char str[280];
+	while (1) {
+		conversionFailed = false;
+		cout << "Podaj temperature do przeliczenia (Kel): \n";
+		cin.getline(str, 280);
+		float kel = convertToDouble(str, 280);
+		if (conversionFailed) {
+			cout << "Wprowadzono niepoprawny zapis liczby.\n";
+		}
+		else return kel;
+	}
 }
 //sprawdzenie czy podana temperatura jest mozliwa
 float check(float temp, char stopnie) {		
@@ -243,7 +275,14 @@ void historiaMenu() {
 	cout << "2. Tylko F -> inne\n";
 	cout << "3. Tylko K -> inne\n";
 	cout << "4. Cala historia\n";
-	cin >> opcja;
+	char str[280];
+	conversionFailed = false;
+	cin.getline(str, 280);
+	opcja = convertToDouble(str, 280);
+	if (conversionFailed) {
+		cout << "Niepoprawna opcja.\n";
+		return;
+	}
 	switch (opcja) {
 	case 1:	//Celsjusz
 	{
@@ -313,7 +352,13 @@ void historiaUsun() {
 
 	int entityToRemove;		//wybor pozycji
 	cout << "Wybierz pozycje, ktora zostanie usunieta.\n";
-	cin >> entityToRemove;
+	char str[280];
+	conversionFailed = false;
+	cin.getline(str, 280);
+	entityToRemove = convertToDouble(str, 280);
+	if (conversionFailed) {
+		cout << "Wprowadzono niepoprawny zapis liczby.\n";
+	}
 
 	if (entityToRemove <1 || entityToRemove >dataCounter / 2) {	//warunek ze jak eTR jest mniesze od 1 albo wiekze niz ilosc wpisow ktore mamy to stop
 		cout << "Nieprawidlowa pozycja. \n";
@@ -330,6 +375,7 @@ void historiaUsun() {
 }
 
 void historiaMod() {
+	char str[280];
 	system("cls");
 	if (dataCounter == 0) {		//pokazanie historii
 		cout << "Historia jest pusta.\n";
@@ -344,7 +390,12 @@ void historiaMod() {
 
 	int entityToModify;		//wybor pozycji
 	cout << "Wybierz pozycje, ktora zostanie zmodyfikowana.";
-	cin >> entityToModify;
+	conversionFailed = false;
+	cin.getline(str, 280);
+	entityToModify = convertToDouble(str, 280);
+	if (conversionFailed) {
+		cout << "Wprowadzono niepoprawny zapis liczby.\n";
+	}
 
 	if (entityToModify <1 || entityToModify >dataCounter / 2) {	//warunek ze jak eTM jest mniesze od 1 albo wiekze niz ilosc wpisow ktore mamy to stop
 		cout << "Nieprawidlowa pozycja. \n";
@@ -357,11 +408,26 @@ void historiaMod() {
 	char skala1;
 	char skala2;
 	cout << "Podaj nowa temperature do przeliczenia. \n";
-	cin >> temp1;
+	conversionFailed = false;
+	cin.getline(str, 280);
+	temp1 = convertToDouble(str, 280);
+	if (conversionFailed) {
+		cout << "Wprowadzono niepoprawny zapis liczby.\n";
+	}
 	cout << "Podaj skale, w ktorej jest nowa temperatura. \n";
-	cin >> skala1;
+	cin.getline(str, 280);
+	skala1 = str[0];
+	if (skala1 != 'C' && skala1 != 'F' && skala1 != 'K') {
+		cout << "Nieprawidlowa skala temperatury.\n";
+			return;
+	}
 	cout << "Podaj nowa skale, na ktora ma byc przeliczona ta temperatura.\n";
-	cin >> skala2;
+	cin.getline(str, 280);
+	skala2 = str[0];
+	if (skala2 != 'C' && skala2 != 'F' && skala2 != 'K') {
+		cout << "Nieprawidlowa skala temperatury.\n";
+		return;
+	}
 	if (check(temp1, skala1) == -999.0) {
 		cout << "Nie ma takiej temperatury.\n";
 	}
@@ -375,11 +441,15 @@ void historiaMod() {
 	else if (skala1 == 'K' && skala2 == 'C') temp2 = KtoC(temp1);
 	else if (skala1 == 'F' && skala2 == 'K') temp2 = FtoK(temp1);
 	else if (skala1 == 'F' && skala2 == 'C') temp2 = FtoC(temp1);
+	else {
+		cout << "Nieprawidlowa skala temperatury.\n";
+			return;
+	}
 
-	tablicaLiczb[entityToModify] = temp1;
-	tablicaZnakow[entityToModify] = skala1;
-	tablicaLiczb[entityToModify + 1] = temp2;
-	tablicaZnakow[entityToModify + 1] = skala2;
+	tablicaLiczb[zmiana] = temp1;
+	tablicaZnakow[zmiana] = skala1;
+	tablicaLiczb[zmiana + 1] = temp2;
+	tablicaZnakow[zmiana + 1] = skala2;
 
 	cout << "Wpis zostal zmodyfikowany.\n";
 }
@@ -387,23 +457,38 @@ void historiaMod() {
 void historiaLos() {
 	int iloscLos;
 	cout << "Podaj ilosc losowych wartosci do przeliczenia: \n";
-	cin >> iloscLos;
+	char str[280];
+	conversionFailed = false;
+	cin.getline(str, 280);
+	iloscLos = convertToDouble(str, 280);
+	if (conversionFailed) {
+		cout << "Wprowadzono niepoprawny zapis liczby.\n";
+		return;
+	}
+	if (iloscLos <= 0) {
+		cout << "Ilosc losowych wartosci musi byc dodatnia.";
+		return;
+	}
 	char opcja;
-	if (dataCounter + iloscLos * 2 >= 100) {
+	if (dataCounter + iloscLos * 2 > 100) {
 		cout << "Zbyt malo miejsca w tablicy na wygenerowanie " << iloscLos << " wartosci.\nCzy chcesz przeliczyc tyle wartosci, ile pozostalo miejsca w tabeli?\n(T/N)\n";
-		cin >> opcja;
+		cin.getline(str, 280);
+		opcja = str[0];
+		if (conversionFailed) {
+			cout << "Wprowadzono niepoprawny zapis liczby.\n";
+		}
 		if (opcja != 't' && opcja != 'T') {
 			return;
 		}
 		iloscLos = (100 - dataCounter) / 2;
 	}
 
-		char skala1;
-		char skala2;
+		char skala1='X';
+		char skala2='X';
 		float temp1;
 		float temp2;
 		int los1;	//pierwsza skala
-		int los2;	//poczatkowa temperatura
+		int los2=0;	//poczatkowa temperatura
 		int los3;	//druga skala
 		for (int i = 0; i < iloscLos; i++) {
 			los1 = rand() % 3;
@@ -422,7 +507,7 @@ void historiaLos() {
 				los2 = rand() % 1001;
 			}
 
-			temp1 = (double)los2;
+			temp1 = (double)los2;	//zamiana z int na double
 
 			do {
 				los3 = rand() % 3;
@@ -437,8 +522,59 @@ void historiaLos() {
 			else if (skala1 == 'K' && skala2 == 'C') temp2 = KtoC(temp1);
 			else if (skala1 == 'F' && skala2 == 'K') temp2 = FtoK(temp1);
 			else if (skala1 == 'F' && skala2 == 'C') temp2 = FtoC(temp1);
-
+			else {
+				cout << "Blad zamiany temperatur. Podano bledna skale.";
+				return;
+			}
 			historiaLiczb(temp1, temp2, skala1, skala2);
 		}
 		cout << "Losowe wpisy zostaly wygeneroiwane.\n";
+}
+
+double convertToDouble(const char vector[], int size){
+	double result = 0.0;
+	double fractionalMultiplier = 0.1;
+	bool isNegative = false;
+	bool isFractional = false;
+	bool signRecognised = false;
+
+	for (int i = 0; i < size; ++i)
+	{
+		if (vector[i] == '\0') break;
+		if (isdigit(vector[i]))
+		{
+			if (isFractional)
+			{
+				result += (vector[i] - '0') * fractionalMultiplier;
+				fractionalMultiplier *= 0.1;
+			}
+			else
+			{
+				result = result * 10.0 + (vector[i] - '0');
+			}
+		}
+		else if (vector[i] == '.' && isFractional == false)
+		{
+			isFractional = true;
+		}
+		else if (vector[i] == '-' && signRecognised == false)
+		{
+			signRecognised = true;
+			isNegative = true;
+		}
+		else if (vector[i] == '+' && signRecognised == false)
+		{
+			signRecognised = true;
+			continue;
+		}
+		else
+		{
+			if (conversionFailed == false)
+			{
+				cout << "Wprowadzono niepoprawny zapis liczby.\n";
+				conversionFailed = true;
+			}
+		}
+	}
+	return isNegative ? -result : result;
 }
